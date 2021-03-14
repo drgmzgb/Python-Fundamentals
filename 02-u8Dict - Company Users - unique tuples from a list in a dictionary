@@ -1,0 +1,28 @@
+# u8 dictionaries : company users
+# #commands until "End", order in ascending. / - order dictionaries in ascending order; more values in one keys
+# how to get unique tuples from a list in a dictionary
+# input:
+# SoftUni -> AA12345
+# SoftUni -> BB12345
+# Microsoft -> CC12345
+# HP -> BB12345
+# End
+
+command = input()
+companies_users = {}
+unique_numbers = []
+while not command == "End":
+    name, number = command.split(" -> ")
+    if f"{number} {name}" not in unique_numbers:
+        unique_numbers.append(f"{number} {name}")
+        if name not in companies_users:
+            companies_users[name] = []
+        companies_users[name].append(number)
+    command = input()
+sorted_companies = sorted(companies_users.items(), key=lambda kvp: (kvp[0], kvp[1]))
+
+
+for name, number in sorted_companies:
+    print(f"{name}")
+    for elem in number:
+        print(f"-- {elem}")
