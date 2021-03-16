@@ -1,0 +1,9 @@
+# Text processing - L2 - Repeat strings
+
+# input:
+# hi abc add
+
+command = input().split()
+for word in command:
+    print(word * len(word), end="")
+
