@@ -1,0 +1,10 @@
+# text processing U3 extract file - split by "\" and take the last el.
+# input:
+# C:\Internal\training-internal\Template.pptx
+
+file_path = input().split("\\")
+file = (file_path[-1]).split(".")
+fileName = file[0]
+fileType = file[1]
+print(f"File name: {fileName}")
+print(f"File extension: {fileType}")
