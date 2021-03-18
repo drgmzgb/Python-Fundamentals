@@ -1,0 +1,57 @@
+# letters change numbers U8 text processing - Ascii + index + Sum
+# input:
+# A12b s17G
+# A 65 / Z 90           66 91
+# a 97 / z 122          98 123
+# 0 9 - 48 57
+current_lst = []
+numbers_only = []
+final_numbers = []
+txt = input().split()
+for each_word in txt:
+    separate_word = each_word.split()
+    for el in separate_word:
+        for element in el:
+            if ord(element) < 57:
+                numbers_only.append(element)
+        cur_num = "".join(numbers_only)
+        final_numbers.append(cur_num)
+        cur_num = ""
+        numbers_only = []
+index = 0
+final_res = 0
+SecondActon = False
+last_two_sums = []
+for command in txt:
+    current_number = int(final_numbers[index])
+    result = current_number
+    final_res = result
+    for el in command:
+        for each_element in el:
+            if ord(each_element) > 57:
+                if 97 <= ord(each_element) <= 122 and not SecondActon:
+                    position = ord(each_element) - 96
+                    final_res *= position
+                    SecondActon = True
+                elif 97 <= ord(each_element) <= 122 and SecondActon:
+                    position = ord(each_element) - 96
+                    final_res += position
+                    SecondActon = False
+                elif 65 <= ord(each_element) <= 90 and not SecondActon:
+                    position = ord(each_element) - 64
+                    final_res /= position
+                    SecondActon = True
+                elif 65 <= ord(each_element) <= 90 and SecondActon:
+                    position = ord(each_element) - 64
+                    final_res -= position
+                    SecondActon = False
+            else:
+                continue
+    index += 1
+    last_two_sums.append(final_res)
+    final_res = 0
+final_sum = 0
+for each_num in last_two_sums:
+    final_sum += each_num
+print(f"{final_sum:.2f}")
+
