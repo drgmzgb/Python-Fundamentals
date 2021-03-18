@@ -1,0 +1,10 @@
+#5 replace repeating chars U6 - from text processing - aaaa -> a
+# input:
+# aaaaabbbbbcdddeeeedssaa
+txt = input()
+index = 0
+previous_character = ""
+for el in txt:
+    if not el == previous_character:
+        print(el, end="")
+    previous_character = el
