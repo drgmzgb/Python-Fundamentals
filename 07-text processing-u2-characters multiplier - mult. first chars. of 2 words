@@ -1,0 +1,47 @@
+# characters multiplier - u2 - text processing - mutiply first characters' number of 2 words 
+#
+# input:
+# George Peter
+result = 0
+num1 = []
+num2 = []
+two_strings = input()
+first, second = two_strings.split()
+times = 0
+for letter in first:
+    num = ord(letter)
+    num1.append(num)
+for letter in second:
+    num = ord(letter)
+    num2.append(num)
+new_copy_of_num1 = num1.copy()
+new_copy_of_num2 = num2.copy()
+index = 0
+difference = abs((len(num1)) - (len(num2)))
+if difference == 0:
+    for times in range(len(num1)):
+        sum = num1[index] * num2[index]
+        result += sum
+        index += 1
+        sum = 0
+else:
+    if len(num1) > len(num2):
+        times = len(num2)
+        for x in range(times):
+            sum = new_copy_of_num1[index] * new_copy_of_num2[index]
+            del new_copy_of_num1[0]
+            del new_copy_of_num2[0]
+            result += sum
+        for number in new_copy_of_num1:
+            result += int(number)
+    else:
+        times = len(num1)
+        for x in range(times):
+            sum = new_copy_of_num1[index] * new_copy_of_num2[index]
+            del new_copy_of_num1[0]
+            del new_copy_of_num2[0]
+            result += sum
+        for number in new_copy_of_num2:
+            result += int(number)
+print(result)
+
