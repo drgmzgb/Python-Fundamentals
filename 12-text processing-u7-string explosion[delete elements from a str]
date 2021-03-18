@@ -1,0 +1,38 @@
+# string explosion U7 REAL - from text processing - delete symbols from a string
+# input:
+# abv>1>1>2>2asdasd
+
+txt = input()
+txt_lst = list(txt)
+new_lst = []
+sum_of_left_nums = 0
+index = 0
+SkipNext = False
+for el in txt_lst:
+    if sum_of_left_nums >= 1 and not el == ">":
+        index += 1
+        sum_of_left_nums -= 1
+        continue
+    if el == ">":
+        next_el = txt_lst[index + 1]
+        left_num = int(next_el)
+        sum_of_left_nums += left_num
+        new_lst.append(el)
+        index += 1
+    elif not el == ">":
+        new_lst.append(el)
+        index += 1
+    # elif SkipNext:
+    #     index += 1
+    #     SkipNext = False
+# new_lst = [abv>>>>asdasd]
+# new_index = 0
+# for el in new_lst:
+#     if el == ">":
+#         while new_lst[new_index + 1] == ">":
+#             new_index += 1
+#         for number_of_times in range(sum_of_left_nums):
+#             del new_lst[new_index+1]
+#         break
+#     new_index += 1
+print("".join(new_lst))
