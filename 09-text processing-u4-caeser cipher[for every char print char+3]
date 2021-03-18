@@ -1,0 +1,8 @@
+# Caeser Cipher u4 text processing - for every char print char+3
+
+# input:
+# Programming is cool!
+command = input()
+for el in command:
+    x = ord(el)
+    print(chr(x+3), end="")
