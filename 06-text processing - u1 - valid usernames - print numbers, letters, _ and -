@@ -1,0 +1,9 @@
+# text processing u1 valid usernames
+# input:
+# sh, too_long_username, !lleg@l ch@rs, jeffbutt
+
+command = input().split(", ")
+for el in command:
+    if el.isalnum() or "-" in el or "_" in el:
+        if 3 <= len(el) <= 16:
+            print(el)
