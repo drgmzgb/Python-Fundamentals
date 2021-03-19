@@ -1,0 +1,79 @@
+# u9 rage quit - text processing - very diffcult/two functions
+# input:
+# aSd2&5s@1
+command = input()
+
+
+def finalwords():
+    separate_words = []
+    words_collection = []
+    final_words_only = []
+    for el in command:
+        if not 48 <= ord(el) <= 57:
+            separate_words.append(el)
+        else:
+            words_collection = words_collection + ["".join(separate_words)]
+            separate_words = []
+        if not separate_words == []:
+            numbers_collection = words_collection + ["".join(separate_words)]
+            separate_numbers = []
+    for elms in words_collection:
+        if not elms.isdigit():
+            final_words_only.append(elms)
+    return final_words_only
+
+
+def numberoftimes():
+    separate_numbers = []
+    numbers_collection = []
+    final_numbers_only = []
+    for el in command:
+        if 48 <= ord(el) <= 57:
+            separate_numbers.append(el)
+        else:
+            numbers_collection = numbers_collection + ["".join(separate_numbers)]
+            separate_numbers = []
+    if not separate_numbers == []:
+        numbers_collection = numbers_collection + ["".join(separate_numbers)]
+        separate_numbers = []
+    for els in numbers_collection:
+        if els.isdigit():
+            final_numbers_only.append(els)
+    return final_numbers_only
+res = []
+res_words = []
+res = finalwords()
+for string in res:
+    if not string == "":
+        res_words.append(string)
+res_nums = numberoftimes()
+current_res = []
+index = 0
+final_res = []
+to_print = []
+for number_of_times in range(len(res_nums)):
+    cur_word = res_words[index]
+    cur_times = int(res_nums[index])
+    for el in cur_word:
+        if 97 <= ord(el) <= 122:
+            res = ord(el) - 32
+            current_res.append(res)
+        elif 65 <= ord(el) <= 90:
+            res = ord(el)
+            current_res.append(res)
+        else:
+            res = ord(el)
+            current_res.append(res)
+    for num_of_times in range(cur_times):
+        for element in current_res:
+            final_res.append(chr(element))
+            if len(current_res) * cur_times == len(final_res):
+                current_res = []
+                to_print = to_print + final_res.copy()
+                final_res = []
+    index += 1
+
+unique_chars = (set(to_print))
+number_of_unique_chars = len(unique_chars)
+print(f"Unique symbols used: {number_of_unique_chars}")
+print("".join(to_print))
