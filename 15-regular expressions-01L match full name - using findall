@@ -1,0 +1,11 @@
+# match full name - 1L - RegEx - w. findall
+#
+# input:
+# Peter Smith, peter smith, Peter smith, peter Smith, PEter Smith, Peter SmIth, Lily Everett
+
+names = "Peter Smith, peter smith, Peter smith, peter Smith, PEter Smith, Peter SmIth, Lily Everett"
+import re
+regex_command = r"\b[A-Z][a-z]+ [A-Z][a-z]+\b"
+matching_names = re.findall(regex_command, names)
+print(" ".join(matching_names))
+# Peter Smith Lily Everett
