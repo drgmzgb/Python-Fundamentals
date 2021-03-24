@@ -1,0 +1,15 @@
+# 03 match dates - regular expressions = naming with ?P<...> groupdict, using groupdict, for, finditer
+dates = "13/Jul/1928, 10-Nov-1934, , 01/Jan-1951,f 25.Dec.1937 23/09/1973, 1/Feb/2016"
+#"dd{separator}MMM{separator}yyyy" -> a period ("."), a hyphen ("-") or a forward slash ("/")
+pattern = r"(?P<day>\d{2})(?P<separator>(-|.|/))(?P<month>[A-Z][a-z]+)(?P=separator)(?P<year>\d{4})"
+import re
+empty_dates = []
+correct_dates = [obj.groupdict() for obj in re.finditer(pattern, dates)]
+# [13/Jul/1928, 10-Nov-1934, 25.Dec.1937]
+for each_Date in correct_dates:
+    empty_dates.append(each_Date)
+#[{'day': '13', 'separator': '/', 'year': '1928'}, {'day': '10', 'separator': '-', 'year': '1934'}, {'day': '25', 'separator': '.', 'year': '1937'}]
+    print(f"Day: {each_Date['day']}, Month: {each_Date['month']}, {each_Date['year']}: 1928")
+# Day: 13, Month: Jul, 1928: 1928
+# Day: 10, Month: Nov, 1934: 1928
+# Day: 25, Month: Dec, 1937: 1928
