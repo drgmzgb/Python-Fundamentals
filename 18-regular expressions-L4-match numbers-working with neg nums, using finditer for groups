@@ -1,0 +1,8 @@
+# match numbers 4L RegEx - working with negative numbers, using finditer for groups
+# print floating and int nums
+import re
+text = "1 -1 1s 123 s-s -123 _55_ _f 123.456 -123.456 s-1.1 s2 -1- zs-2 s-3.5"
+pattern = r"(^|(?<=\s))-?\d+(\.\d+)?($|(?=\s))"
+match_res = [obj.group() for obj in re.finditer(pattern, text)]
+for el in match_res:
+    print("".join(el), end=" ")
