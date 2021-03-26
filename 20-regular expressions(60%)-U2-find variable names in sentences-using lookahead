@@ -1,0 +1,12 @@
+import re
+# u2 - find variable names in sentences - RegEx- using lookahead
+text = "_test _003 _out _txt"
+res_end = []
+# A variable name starts with an underscore ("_") and contains azAZ09. Extract without the underscore.
+pattern = r"^|(?<=_)[a-zA-Z0-9]+\b"
+res = re.findall(pattern, text)
+for el in res:
+    if not el == "":
+        res_end.append(el)
+
+print(*res_end, sep=",")
