@@ -1,0 +1,17 @@
+def get_emails(res):
+    emails = []
+    stuff = ['$'.join(map(str, x)) for x in res]
+    stuff2 = "".join(stuff).split("$")
+    for el in stuff2:
+        el_2 = el.split(",")
+        for each_element in el_2:
+            if "@" in each_element:
+                emails.append(each_element)
+    return emails
+text = input()
+import re
+pattern = r"((?<!\.|_|-)\b([a-z0-9]-?\.?)+[a-z]+?@([a-z]-?\.?)+[a-z]+-?\.?[a-z]+)\b|\b([0-9]+@[a-z]-?\.?[a-z]+-?\.?[a-z]+)\b"
+res = re.findall(pattern, text)
+emails = get_emails(res)
+for each_email in emails:
+    print("".join(each_email))
