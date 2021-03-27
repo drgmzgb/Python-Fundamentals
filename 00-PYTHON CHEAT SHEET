@@ -1,0 +1,13 @@
+get result from tuple:
+
+def get_website(res):
+    website = []
+    stuff = ['$'.join(map(str, x)) for x in res]
+    stuff2 = "".join(stuff).split("$")
+    for el in stuff2:
+        if "www" in el:
+            website.append(el)
+    return website
+    
+URLREGEX
+r"(w{3}\.((|[A-Za-z0-9]-?)+\.)+[a-zA-Z]+)"
