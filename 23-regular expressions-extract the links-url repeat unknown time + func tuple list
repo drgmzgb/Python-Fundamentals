@@ -1,0 +1,35 @@
+# u6 extract the links - regex - url + repeat unknown time + func tuple list
+
+def get_website(res):
+    website = []
+    stuff = ['$'.join(map(str, x)) for x in res]
+    stuff2 = "".join(stuff).split("$")
+    for el in stuff2:
+        if "www" in el:
+            website.append(el)
+    return website
+# 
+# input:
+# 
+# •	Some textwww.softuni.bg
+# •	Just a link in a www.sea-of-text.bg-swimming around
+# •	Instruments www.Instruments.rom.com.trombone2000 Instrument here
+# •	All your ice cream flavors-www.scream.for.ice.cream(We  also have squirrels)
+#     
+import re
+pattern = r"(w{3}\.((|[A-Za-z0-9]-?)+\.)+[a-zA-Z]+)"
+websites = []
+text = input()
+while text:
+
+    res = re.findall(pattern, text)
+    if not res == []:
+        websites.append(get_website(res))
+    text = input()
+
+for each_site in websites:
+    if len(each_site) == 1:
+        print("".join(each_site))
+    elif len(each_site) > 1:
+        for website_in_list in each_site:
+            print("".join(website_in_list))
