@@ -1,0 +1,7 @@
+# u3 find occurances of word in sentence - regular expressions - find specific word, w. IGNORECASE
+import re
+text = "The waterfall was so high, that the child couldn't see its peak."
+word = "the"
+pattern = fr"{word}\b"
+res = re.findall(pattern, text, re.IGNORECASE)
+print(len(res))
