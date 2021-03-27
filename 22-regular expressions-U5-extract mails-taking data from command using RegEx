@@ -1,0 +1,23 @@
+# u5 extract emails - regular expressions - take data from command using RegEx
+# ">>{furniture name}<<{price}!{quantity}" -> valid
+import re
+# input:
+# >>Sofa<<312.23!3
+# >>TV<<300!5
+# >Invalid<<!5
+# Purchase
+command = input()
+pattern_word = r"[A-Za-z]+"
+patters_price_and_number = r"\d+?\.\d+|\d+"
+total_money = 0
+money_owed = 0
+print("Bought furniture:")
+while "Purchase" not in command:
+    result_price_and_number = re.findall(patters_price_and_number, command)
+    result_word = re.findall(pattern_word, command)
+    if len(result_price_and_number) == 2:
+        money_owed = float(result_price_and_number[0]) * float(result_price_and_number[1])
+        total_money += money_owed
+        print(*result_word)
+    command = input()
+print(f"Total money spend: {total_money:.2f}")
