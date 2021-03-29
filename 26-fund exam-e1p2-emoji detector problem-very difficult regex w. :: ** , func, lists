@@ -1,0 +1,42 @@
+#1.2 emoji detector problem exam fund -
+
+
+def emojis(result):
+    emojis = []
+    stuff = ['$'.join(map(str, x)) for x in result]
+    stuff2 = "".join(stuff).split("$")
+    for el in stuff2:
+        if el.isalpha():
+            emojis.append(el)
+    return emojis
+
+def return_final_emojis(result):
+    stuff = [''.join(map(str, x)) for x in result]
+    return stuff
+
+text = "In the Sofia Zoo there are 311 animals in total! ::Smiley:: This includes 3 **Tigers**, 1 ::Elephant:, 12 **Monk3ys**, a **Gorilla::, 5 ::fox:es: and 21 different types of :Snak::Es::. ::Mooning:: **Shy**"
+import re
+pattern = r"\d"
+res = re.findall(pattern, text)
+sum = 1
+for num in res:
+    number1 = int(num)
+    sum *= number1
+print(f"Cool threshold: {sum}")
+pattern_emojis = r"([:]{2}|[*]{2})([A-Z]{1}[a-z]{2,})(\1)"
+result = re.findall(pattern_emojis, text)
+result_emojis = emojis(result)
+# ['Smiley', 'Tigers', 'Mooning', 'Shy']
+elements_sum = 0
+final_emojis_list = return_final_emojis(result)
+# ['::Smiley::', '**Tigers**', '::Mooning::', '**Shy**']
+print(f"{len(final_emojis_list)} emojis found in the text. The cool ones are:")
+index = 0
+for word in result_emojis:
+    for element in word:
+        cur_num = ord(element)
+        elements_sum += cur_num
+    if elements_sum > sum:
+        print(final_emojis_list[index])
+    index += 1
+    elements_sum = 0
