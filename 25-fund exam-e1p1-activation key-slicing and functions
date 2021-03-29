@@ -1,0 +1,52 @@
+# 1 activation key - FUND EXAM - slicing and functions 
+
+
+def slice(command, activation_key):
+    slice, starting_index, ending_index = command.split(">>>")
+    first_part_slice = activation_key[0:int(starting_index)]
+    second_part_slice = activation_key[int(ending_index)::]
+    new_key = first_part_slice + second_part_slice
+    return new_key
+
+def flip(command, activation_key):
+    flip, lower_or_upper, starting_index, ending_index = command.split(">>>")
+    if lower_or_upper == "Upper":
+        first_part_slice = activation_key[0:int(starting_index)]
+        second_part_slice = activation_key[int(ending_index)::]
+        changed_in_between = activation_key[int(starting_index):int(ending_index)]
+        upper_changed_in_between = changed_in_between.upper()
+        new_key = first_part_slice + upper_changed_in_between + second_part_slice
+        return new_key
+    elif lower_or_upper == "Lower":
+        first_part_slice = activation_key[0:int(starting_index)]
+        second_part_slice = activation_key[int(ending_index)::]
+        changed_in_between = activation_key[int(starting_index):int(ending_index)]
+        lower_changed_in_between = changed_in_between.lower()
+        new_key = first_part_slice + lower_changed_in_between + second_part_slice
+        return new_key
+
+def contains(command, activation_key):
+    contains, word = command.split(">>>")
+    if word in activation_key:
+        result = f"{activation_key} contains {word}"
+    elif not word in activation_key:
+        result = "Substring not found!"
+    return result
+
+
+activation_key = input()
+command = input()
+
+while "Generate" not in command:
+    if "Slice" in command:
+        activation_key = slice(command, activation_key)
+        print(activation_key)
+    elif "Flip" in command:
+        activation_key = flip(command, activation_key)
+        print(activation_key)
+    elif "Contains" in command:
+        print(contains(command, activation_key))
+    command = input()
+
+
+print(f"Your activation key is: {activation_key}")
