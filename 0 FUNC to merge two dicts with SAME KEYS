@@ -1,0 +1,14 @@
+def Combine(cities_and_gold_new, cities_and_population_new):
+    d = {}
+    for city_gold in cities_and_gold_new:
+        for city_population in cities_and_population_new:
+            if city_population == city_gold:
+                gold_to_be_added = cities_and_gold_new[city_population]
+                population_to_be_added = cities_and_population_new[city_population]
+                d[city_gold] = {"population": population_to_be_added, "gold": gold_to_be_added}
+    return d
+
+
+cities_and_gold_new = {'Tortuga': '1250', 'Santo Domingo': '630'}
+cities_and_population_new = {'Tortuga': '345000', 'Santo Domingo': '240000'}
+print(Combine(cities_and_gold_new, cities_and_population_new))
