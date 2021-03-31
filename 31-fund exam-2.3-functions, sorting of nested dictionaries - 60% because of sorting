@@ -1,0 +1,115 @@
+# un exam 2.3 heroes of code and logic - functions, sorting of nested dictionaries
+#
+# input:
+# 4
+# Adela 90 150
+# SirMullich 70 40
+# Ivor 1 111
+# Tyris 94 61
+# Heal - SirMullich - 50
+# Recharge - Adela - 100
+# CastSpell - Tyris - 1000 - Fireball
+# TakeDamage - Tyris - 99 - Fireball
+# TakeDamage - Ivor - 3 - Mosquito
+# End
+
+
+def CastSpell(heroes_mp, command):
+    act_action, act_name, poins_needed, magic = command.split(" - ")
+    for names in heroes_mp:
+        if names == act_name:
+            points = int(heroes_mp[names])
+            if points >= int(poins_needed):
+                points_left = points - int(poins_needed)
+                heroes_mp[names] = str(points_left)
+                return print(f"{names} has successfully cast {magic} and now has {points_left} MP!")
+            else:
+                return print(f"{names} does not have enough MP to cast {magic}!")
+
+
+def TakeDamage(heroes_hp, command):
+    act_action, act_name, act_poins, attacker = command.split(" - ")
+    for names in heroes_hp:
+        if names == act_name:
+            points = int(heroes_hp[names]) - int(act_poins)
+            if points <= 0:
+                points = 0
+                heroes_hp[names] = str(points)
+                heroes_hp.pop(names)
+                heroes_mp.pop(names)
+                return print(f"{act_name} has been killed by {attacker}!")
+
+            else:
+                heroes_hp[names] = str(points)
+                points_left = points - int(act_poins)
+                return print(f"{act_name} was hit for {act_poins} HP by {attacker} and now has {abs(points_left)} HP left!")
+
+def Combine(heroes_hp, heroes_mp):
+    d = {}
+    for hero in heroes_hp:
+        for hero in heroes_mp:
+            hp_to_be_added = int(heroes_hp[hero])
+            mp_to_be_added = int(heroes_mp[hero])
+            d[hero] = {"hp": hp_to_be_added, "mp": mp_to_be_added}
+    return d
+
+
+def Recharge(heroes_mp, command):
+    act_action, act_name, act_poins = command.split(" - ")
+    for names in heroes_mp:
+        if names == act_name:
+            points_to_max = 200 - int(heroes_mp[names])
+            points = int(heroes_mp[names]) + int(act_poins)
+            if points > 200:
+                points = 200
+            heroes_mp[names] = str(points)
+            if int(act_poins) < points_to_max:
+                return print(f"{act_name} recharged for {act_poins} MP!")
+            else:
+                return print(f"{act_name} recharged for {points_to_max} MP!")
+
+def Heal(heroes_hp, command):
+    act_action, act_name, act_poins = command.split(" - ")
+    for names in heroes_hp:
+        if names == act_name:
+            points_to_max = 100 - int(heroes_hp[names])
+            points = int(heroes_hp[names]) + int(act_poins)
+            if points > 100:
+                points = 100
+            heroes_hp[names] = str(points)
+            if int(act_poins) < points_to_max:
+                return print(f"{act_name} healed for {act_poins} HP!")
+            else:
+                return print(f"{act_name} healed for {points_to_max} HP!")
+
+heroes_hp = {}
+heroes_mp = {}
+heroes = {}
+number_of_heroes = int(input())
+for numbers in range(number_of_heroes):
+    command = input().split()
+    name = command[0]
+    hp = command[1]
+    mp = command[2]
+    heroes_hp[name] = hp
+    heroes_mp[name] = mp
+
+command = input()
+while not command == "End":
+    if "CastSpell" in command:
+        CastSpell(heroes_mp, command)
+    elif "TakeDamage" in command:
+        TakeDamage(heroes_hp, command)
+    elif "Recharge" in command:
+        Recharge(heroes_mp, command)
+    elif "Heal" in command:
+        Heal(heroes_hp, command)
+    command = input()
+
+final_heroes_result = Combine(heroes_hp, heroes_mp)
+sorted_heroes = sorted(final_heroes_result.items(), key=lambda kvp: kvp[1]['hp'], reverse=True)
+
+for hero, points in sorted_heroes:
+    print(hero)
+    print(f"  HP: {points['hp']}")
+    print(f"  MP: {points['mp']}")
