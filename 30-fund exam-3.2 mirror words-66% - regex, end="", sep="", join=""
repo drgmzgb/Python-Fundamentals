@@ -1,0 +1,54 @@
+# un exam 3.2 mirror words - regex
+
+
+def get_result(res, symbols):
+    counter = 0
+    mirrorwords = []
+    stuff = ["".join(map(str, x)) for x in res]
+    index = 0
+    for pair in stuff:
+        if symbols[index] in pair:
+            old_symbol = symbols[index]
+            old_symbol2 = old_symbol + old_symbol
+            symbol1 = ""
+            symbol2 = ","
+            new_word = pair.replace(old_symbol2, symbol2)
+            new_word = new_word.replace(old_symbol, symbol1)
+            word1, word2 = new_word.split(",")
+            if word2 == word1[::-1]:
+                mirrorwords.append(new_word)
+                counter += 1
+            if not word2 == word1[::-1]:
+                counter += 1
+            index += 1
+    return mirrorwords, counter
+
+def check_for_digits(el):
+   pattern = r"\d"
+   digits_found = re.findall(pattern, el)
+   if digits_found == []:
+      final_result = "00"
+      return final_result
+   else:
+       final_result = "".join(digits_found)
+       return final_result
+
+import re
+pattern = r"(?P<group>@+|#+)[a-zA-Z]+(?P=group){2}[a-zA-Z]+(?P=group)"
+# text = input()
+text = "@mix#tix3dj#poOl##loOp#wl@@bong&song%4very$long@thong#Part##traP##@@leveL@@Level@##car#rac##tu@pack@@ckap@#rr#sAw##wAs#r#@w1r	"
+res = [obj.group() for obj in re.finditer(pattern, text)]
+symbols = re.findall(pattern, text)
+result = get_result(res, symbols)
+results_to_be_printed = []
+number = result[1]
+word_pairs = result[0]
+print(f"{number} word pairs found!")
+print("The mirror words are:")
+for elements in word_pairs:
+    word1, word2 = elements.split(",")
+    # print(f'{word1} <=> {word2}', sep=", ", end="")
+    final_res_to_be_printed = f'{word1} <=> {word2}'
+    results_to_be_printed.append(final_res_to_be_printed)
+print(", ".join(results_to_be_printed))
+
