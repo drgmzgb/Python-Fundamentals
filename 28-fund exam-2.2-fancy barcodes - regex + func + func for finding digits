@@ -1,0 +1,39 @@
+# Un Exam fancy barcodes 2.2 - RegEx+func
+
+def check_for_digits(el):
+   pattern = r"\d"
+   digits_found = re.findall(pattern, el)
+   if digits_found == []:
+      final_result = "00"
+      return final_result
+   else:
+       final_result = "".join(digits_found)
+       return final_result
+
+
+def get_result(res):
+    result = []
+    stuff = ['$'.join(map(str, x)) for x in res]
+    stuff2 = "".join(stuff).split("$")
+    index = 0
+    digits_found = 0
+    for el in stuff2:
+        if len(el) >= 6:
+            if index == 0:
+                res = check_for_digits(el)
+                return print(f"Product group: {res}")
+            index += 1
+        elif len(el) < 6:
+            return print("Invalid barcode")
+
+import re
+
+pattern = r"@#+([A-Z]([A-Z]|[a-z][0-9]?|[0-9]+?)+[A-Z])@#+"
+number_of_barcodes = int(input())
+for number in range(number_of_barcodes):
+    command = input()
+    res = re.findall(pattern, command)
+    if not res == []:
+        new_result_2 = get_result(res)
+    else:
+        print("Invalid barcode")
