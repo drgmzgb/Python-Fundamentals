@@ -1,0 +1,52 @@
+# un exam 4.1 word tour-slicing
+
+
+def RemoveStr(trip, command):
+    action = command.split(":")
+    removes_starting_index = int(action[1])
+    removes_ending_index = int(action[2])
+    len_of_trip = len(trip)
+    if removes_starting_index < len_of_trip and removes_ending_index < len_of_trip:
+        first_half = trip[:removes_starting_index]
+        deletion = trip[removes_starting_index:removes_ending_index+1]
+        second_half = trip[removes_ending_index+1::]
+        new_trip = first_half + second_half
+        return new_trip
+    else:
+        return trip
+
+def AddStr(trip, command):
+    action = command.split(":")
+    index = int(action[1])
+    city_to_be_Added = action[2]
+    if 0 <= index <= len(trip):
+        first_half = trip[:index]
+        second_half = trip[index::]
+        new_trip = first_half + city_to_be_Added + second_half
+    return new_trip
+
+def SwitchStr(trip, command):
+    action = command.split(":")
+    city_to_be_changed = action[1]
+    new_city = action[2]
+    if city_to_be_changed in trip:
+        new_trip = trip.replace(city_to_be_changed, new_city)
+    return new_trip
+
+# trip = "Hawai::Cyprys-Greece"
+trip = input()
+
+command = input()
+while not command == "Travel":
+    if "Add" in command:
+        trip = AddStr(trip, command)
+        print(trip)
+    elif "Remove" in command:
+        trip = RemoveStr(trip, command)
+        print(trip)
+    elif "Switch" in command:
+        trip = SwitchStr(trip, command)
+        print(trip)
+    command = input()
+
+print(f"Ready for world tour! Planned stops: {trip}")
