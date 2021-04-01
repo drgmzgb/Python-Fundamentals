@@ -1,0 +1,39 @@
+# 5.1 un exam the imitation game - slicing
+
+message = input()
+command = input()
+
+def ChangeAll(message, command):
+    action, old_el, new_el = command.split("|")
+    new_message = ""
+    if old_el in message:
+        new_message = message.replace(old_el, new_el)
+    return new_message
+
+def Insert(message, command):
+    insert, index, new_el = command.split("|")
+    new_message = ""
+    first_half = message[:int(index)]
+    sec_half = message[int(index)::]
+    new_message = first_half + new_el + sec_half
+    return new_message
+
+def Move(message, command):
+    move, index = command.split("|")
+    new_message = ""
+    first_half = message[int(index)::]
+    sec_half = message[:int(index)]
+    new_message = first_half + sec_half
+    return new_message
+
+
+while not command == "Decode":
+    if "Move" in command:
+        message = Move(message, command)
+    elif "Insert" in command:
+        message = Insert(message, command)
+    elif "ChangeAll" in command:
+        message = ChangeAll(message, command)
+    command = input()
+
+print(f"The decrypted message is: {message}")
